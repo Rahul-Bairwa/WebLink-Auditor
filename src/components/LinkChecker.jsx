@@ -28,16 +28,16 @@ const LinkChecker = () => {
     setLoading(true);
     setProcessedPages(0); // Reset counts
     setTotalPages(0);
-
+    const apiUrl = 'https://weblink-auditor-backend-production.up.railway.app/'
     const eventSource = new EventSource(
-      `http://localhost:5200/check-links-stream?url=${encodeURIComponent(url)}`
+      `${apiUrl}check-links-stream?url=${encodeURIComponent(url)}`
     );
 
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
       if (data.status === "init") {
-        // Set total pages when the backend sends the total count
+        // SFet total pages when the backend sends the total count
         setTotalPages(data.totalPages);
       } else if (data.status === "checked") {
         // Increment processed page count
@@ -86,7 +86,7 @@ const LinkChecker = () => {
   return (
     <div className="w-full min-h-screen bg-white flex flex-col items-center justify-center sm:px-10 sm:py-10 px-0 py-0 ">
       <ErrorModal show={showErrorModal} message={errorMessage} onClose={() => setShowErrorModal(false)} />
-      <div className="w-full max-w-6xl bg-slate-50  sm:rounded-lg sm:px-6 py-12 px-6 " style={{ backgroundColor: "#F5FAFD",  border: "1px solid rgb(196 196 196 / 50%)"}}>
+      <div className="w-full max-w-6xl bg-slate-50  sm:rounded-lg sm:px-6 py-12 px-6 " style={{ backgroundColor: "#F5FAFD", border: "1px solid rgb(196 196 196 / 50%)" }}>
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-black">WebLink Auditor</h1>
           <p className="text-lg text-black-200 mt-2">
@@ -133,7 +133,7 @@ const LinkChecker = () => {
             </p>
           </div> : <><div className="mb-8">
             <p className="text-black text-center">
-            WebLink Auditor ek powerful tool hai jo aapke website ke SEO aur web integrity ko maintain karne me madad karta hai. Yeh tool aapke website ke saare internal aur external links scan karta hai, problematic links detect karta hai, aur detailed reports generate karta hai taaki aap unhe efficiently fix kar sakein. Chahe aap ek blog, e-commerce platform, ya corporate site manage kar rahe ho, WebLink Auditor aapke website ke structure ko optimize karne aur user experience ko behtar banane me sahayak hai.
+              WebLink Auditor ek powerful tool hai jo aapke website ke SEO aur web integrity ko maintain karne me madad karta hai. Yeh tool aapke website ke saare internal aur external links scan karta hai, problematic links detect karta hai, aur detailed reports generate karta hai taaki aap unhe efficiently fix kar sakein. Chahe aap ek blog, e-commerce platform, ya corporate site manage kar rahe ho, WebLink Auditor aapke website ke structure ko optimize karne aur user experience ko behtar banane me sahayak hai.
             </p>
           </div>
 
@@ -194,10 +194,10 @@ const LinkChecker = () => {
           <div>
             <div className="flex justify-end mb-4 items-center">
               <h2 className="text-lg font-semibold text-black mr-2">Broken Links:</h2>
-              <button onClick={exportToCSV} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg flex items-center">Export to CSV <BsFiletypeCsv style={{marginLeft:"5px",fontSize:"20px0",fontWeight:700}}/></button>
+              <button onClick={exportToCSV} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg flex items-center">Export to CSV <BsFiletypeCsv style={{ marginLeft: "5px", fontSize: "20px0", fontWeight: 700 }} /></button>
             </div>
             <div className="overflow-x-auto">
-              <table className="table-auto min-w-full text-sm text-left text-black-300 border-collapse" style={{border: "1px solid rgb(196 196 196 / 40%);",borderRadius:"5px"}}>
+              <table className="table-auto min-w-full text-sm text-left text-black-300 border-collapse" style={{ border: "1px solid rgb(196 196 196 / 40%);", borderRadius: "5px" }}>
                 <thead className="text-xs uppercase bg-white text-black-400">
                   <tr>
                     <th scope="col" className="px-6 py-3">#</th>
