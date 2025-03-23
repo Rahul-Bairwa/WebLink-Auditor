@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import LinkChecker from './components/linkChecker'
+import LinkChecker from './components/LinkChecker'
 import AddTaskModal from './components/AddTaskModal'
 function App() {
   return (
